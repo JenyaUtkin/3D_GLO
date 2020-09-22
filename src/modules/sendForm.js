@@ -3,11 +3,13 @@ const sendForm = () => {
     const loadMessage = 'Загрузка...';
     const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
     const statusMessage = document.createElement('div');
+    
     statusMessage.style.cssText = 'font-size: 2rem; color: #fff;';
 
     document.body.addEventListener('input', (event) => {
     if (event.target.matches('.form-phone')) {
-        event.target.value = event.target.value.replace(/^(8|\+7)(\d{11})/, "");
+        event.target.value = event.target.value.replace(/[^0-9+]/ig, "");
+        event.target.value = event.target.value.substring(0, 12);
     }
     if (
         event.target.name === 'user_name' ||
@@ -15,6 +17,7 @@ const sendForm = () => {
     ) {
         event.target.value = event.target.value.replace(/[^а-яА-ЯёЁ]+$/ig, "");
     }
+
     });
 
     document.body.addEventListener('submit', (event) => {
